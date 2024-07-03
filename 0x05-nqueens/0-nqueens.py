@@ -2,16 +2,6 @@
 
 from sys import argv
 
-n = int(argv[1])
-
-
-col = set()
-posDiag = set()  # (r + c)
-negDiag = set()  # (r - c)
-
-res = []
-board = [["."] * n for i in range(n)]
-
 
 def backtrack(r):
     if r == n:
@@ -32,22 +22,40 @@ def backtrack(r):
         board[r][c] = "."
 
 
-backtrack(0)
-final = []
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+try:
+    n = int(argv[1])
+except BaseException:
+    print('N must be a number')
+    exit(1)
+if n < 4:
+    print('N must be at least 4')
+    exit(1)
+else:
+    col = set()
+    posDiag = set()  # (r + c)
+    negDiag = set()  # (r - c)
 
-# print(res)
+    res = []
+    board = [["."] * n for i in range(n)]
+    backtrack(0)
+    final = []
 
-for i in range(0, len(res)):
-    # print(res[i])
-    gg = []
-    for j in range(0, len(res[i])):
-        # print(res[i][j])
-        for k in range(0, len(res[i][j])):
-            if res[i][j][k] == "Q":
-                # print("HIIIIIIII")
-                # print(j, k)
-                gg.append([j, k])
-    final.append(gg)
+    # print(res)
 
-for pr in final:
-    print(pr)
+    for i in range(0, len(res)):
+        # print(res[i])
+        gg = []
+        for j in range(0, len(res[i])):
+            # print(res[i][j])
+            for k in range(0, len(res[i][j])):
+                if res[i][j][k] == "Q":
+                    # print("HIIIIIIII")
+                    # print(j, k)
+                    gg.append([j, k])
+        final.append(gg)
+
+    for pr in final:
+        print(pr)
